@@ -1,11 +1,12 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
 
 // Config
 
-set('repository', 'https://github.com/acoloma-edu/todo.git');
+set('repository', 'https://github.com/JavLG14/To-Do-DAW.git');
 
 add('shared_files', []);
 add('shared_dirs', []);
@@ -13,19 +14,13 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('192.168.1.137')
-    ->set('remote_user', 'ddaw-ud4-deployer')
-    ->set('deploy_path', '/var/www/ddaw-ud4-a4/html');
+host('44.197.249.158')
+    ->set('remote_user', 'sa04-deployer')
+    ->set('identity_file', '~/.ssh/id_rsa')
+    ->set('deploy_path', '~/var/www/es-cipfpbatoi-deployer/html');
 
 // Hooks
+
 after('deploy:failed', 'deploy:unlock');
 
-task('build', function () {
-    run('cd {{release_path}} && build');
-});
-
-task('reiniciar-fpm', function () {
-    run('sudo /etc/init.d/php8.1-fpm restart');
-});
-
-after('deploy', 'reiniciar-fpm');
+/* before('deploy:symlink', 'artisan:migrate'); */
