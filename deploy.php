@@ -14,13 +14,16 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('44.197.249.158')
+host('98.92.22.38')
     ->set('remote_user', 'sa04-deployer')
     ->set('identity_file', '~/.ssh/id_rsa')
-    ->set('deploy_path', '~/var/www/es-cipfpbatoi-deployer/html');
+    ->set('deploy_path', '/var/www/es-cipfpbatoi-deployer/html');
 
-// Hooks
+// Tasks
+task('reload:php-fpm', function () {
+    run('sudo /etc/init.d/php8.3-fpm restart');
+});
 
+before('deploy:symlink', 'artisan:migrate');
 after('deploy:failed', 'deploy:unlock');
-
-/* before('deploy:symlink', 'artisan:migrate'); */
+after('deploy', 'reload:php-fpm');
