@@ -14,7 +14,7 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('3.235.223.250')
+host('35.175.112.204')
     ->set('remote_user', 'sa04-deployer')
     ->set('identity_file', '~/.ssh/id_rsa')
     ->set('deploy_path', '/var/www/es-cipfpbatoi-deployer/html');
